@@ -20,8 +20,8 @@ const secretAccessKey = "minioadmin"
 const useSSL = false
 
 func main() {
-	http.HandleFunc("/uploads/", uploadFileHandler())
-	http.HandleFunc("/downloadfiles/", downloadFileHandler())
+	http.HandleFunc("/uploads", uploadFileHandler())
+	http.HandleFunc("/down", downloadFileHandler())
 	log.Print("Server started on localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
@@ -70,7 +70,7 @@ func minioFile(filePath string) {
 		log.Fatalln(err)
 	}
 
-	// Make a new bucket.
+	// Make a new bucket called mymusic.
 	bucketName := "fileup"
 	location := "us-east-1"
 
@@ -91,7 +91,7 @@ func minioFile(filePath string) {
 	fullURLFile := strings.Replace(filePath, "/", "", 1)
 	// Upload the zip file
 	objectName := fileName
-	//	filePath := "D:/minio-uploads-download/down/productionand uat (3).txt"
+	//	filePath := "D:\minio-file\down\productionand uat (3).txt"
 	extensions := strings.Split(fileName, ".")
 	extension := extensions[len(extensions)-1]
 	contentType := "application/" + extension
@@ -105,7 +105,8 @@ func minioFile(filePath string) {
 	log.Printf("Successfully uploaded %s of size %d\n", objectName, info.Size)
 }
 
-// //////To download files////////////////
+
+////to download ////
 func minioFiledownload(filename string) {
 	minioClient, err := minio.New(endpoint, &minio.Options{
 		Creds:  credentials.NewStaticV4(accessKeyID, secretAccessKey, ""),
