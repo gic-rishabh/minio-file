@@ -70,7 +70,7 @@ func minioFile(filePath string) {
 		log.Fatalln(err)
 	}
 
-	// Make a new bucket called mymusic.
+	// Make a new bucket.
 	bucketName := "fileup"
 	location := "us-east-1"
 
@@ -105,7 +105,7 @@ func minioFile(filePath string) {
 	log.Printf("Successfully uploaded %s of size %d\n", objectName, info.Size)
 }
 
-// /////////////download files////////////////////
+// //////To download files////////////////
 func minioFiledownload(filename string) {
 	minioClient, err := minio.New(endpoint, &minio.Options{
 		Creds:  credentials.NewStaticV4(accessKeyID, secretAccessKey, ""),
